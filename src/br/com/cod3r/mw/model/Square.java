@@ -19,8 +19,24 @@ public class Square {
 		this.column = column;
 	}
 
-	boolean addSquare(Square adjacent) {
-		return false;
+	boolean addAdjacentSquare(Square adjacent) {
+		boolean differentRow = row != adjacent.row;
+		boolean differentColumn = column != adjacent.column;
+		boolean diagonal = differentRow && differentColumn;
+
+		int deltaRow = Math.abs(row - adjacent.row);
+		int deltaColumn = Math.abs(column - adjacent.column);
+		int finalDelta = deltaRow + deltaColumn;
+
+		if (finalDelta == 1 && !diagonal) {
+			adjacentSquares.add(adjacent);
+			return true;
+		} else if (finalDelta == 2 && diagonal) {
+			adjacentSquares.add(adjacent);
+			return true;
+		} else {
+			return false;
+		}
 
 	}
 
