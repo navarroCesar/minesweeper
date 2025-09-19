@@ -3,14 +3,16 @@ package br.com.cod3r.mw.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.cod3r.mw.exception.ExplosionException;
+
 public class Square {
 
 	private final int row;
 	private final int column;
 
-	private boolean isOpen = false;
-	private boolean isAMine = false;
-	private boolean isFlagged = false;
+	private boolean open = false;
+	private boolean mine = false;
+	private boolean flagged = false;
 
 	private List<Square> adjacentSquares = new ArrayList<>();
 
@@ -40,16 +42,49 @@ public class Square {
 
 	}
 
+	void changeMarking() {
+		if (!open) {
+			flagged = !flagged;
+		}
+	}
+
+	boolean openSquare() {
+
+		if (!open && !flagged) {
+			open = true;
+			if (mine) {
+				throw new ExplosionException();
+			}
+			if (safeNeighborhood()) {
+				adjacentSquares.forEach(a -> a.openSquare());
+			}
+
+			return true;
+		}
+
+		return false;
+	}
+
+	boolean safeNeighborhood() {
+		return adjacentSquares.stream().noneMatch(a -> a.mine);
+	}
+
+	void markAsMine() {
+		if (!mine) {
+			mine = true;
+		}
+	}
+
 	public boolean isOpen() {
-		return isOpen;
+		return open;
 	}
 
 	public boolean isAMine() {
-		return isAMine;
+		return mine;
 	}
 
 	public boolean isFlagged() {
-		return isFlagged;
+		return flagged;
 	}
 
 	public int getRow() {
