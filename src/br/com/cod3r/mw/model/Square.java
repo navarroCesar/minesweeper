@@ -95,4 +95,34 @@ public class Square {
 		return column;
 	}
 
+	boolean goalAchieved() {
+		boolean unraveled = !mine && open;
+		boolean protectedd = mine && flagged;
+		return unraveled || protectedd;
+	}
+
+	long minesInNeighborhood() {
+		return adjacentSquares.stream().filter(a -> a.mine).count();
+	}
+
+	void restart() {
+		open = false;
+		mine = false;
+		flagged = false;
+	}
+
+	public String toString() {
+		if (flagged) {
+			return "x";
+		} else if (open && mine) {
+			return "*";
+		} else if (open && minesInNeighborhood() > 0) {
+			return Long.toString(minesInNeighborhood());
+		} else if (open) {
+			return " ";
+		} else {
+			return "?";
+		}
+	}
+
 }

@@ -16,6 +16,7 @@ public class SquareTest {
 	@BeforeEach
 	void instantiateSquare() {
 		square = new Square(3, 3);
+		square.restart();
 	}
 
 	@Test
@@ -135,4 +136,20 @@ public class SquareTest {
 		assertTrue(adjacentSquare22.isOpen() && !adjacentSquare11.isOpen());
 
 	}
+
+	@Test
+	void testGoalAchieved1() {
+		square.markAsMine();
+		square.changeMarking();
+
+		assertTrue(square.goalAchieved());
+	}
+
+	@Test
+	void testGoalAchieved2() {
+		square.openSquare();
+
+		assertTrue(square.goalAchieved());
+	}
+
 }
