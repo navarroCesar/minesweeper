@@ -75,6 +75,22 @@ public class Square {
 		}
 	}
 
+	boolean goalAchieved() {
+		boolean unraveled = !mine && open;
+		boolean protectedd = mine && flagged;
+		return unraveled || protectedd;
+	}
+
+	long minesInNeighborhood() {
+		return adjacentSquares.stream().filter(a -> a.mine).count();
+	}
+
+	void restart() {
+		open = false;
+		mine = false;
+		flagged = false;
+	}
+
 	public boolean isOpen() {
 		return open;
 	}
@@ -93,22 +109,6 @@ public class Square {
 
 	public int getColumn() {
 		return column;
-	}
-
-	boolean goalAchieved() {
-		boolean unraveled = !mine && open;
-		boolean protectedd = mine && flagged;
-		return unraveled || protectedd;
-	}
-
-	long minesInNeighborhood() {
-		return adjacentSquares.stream().filter(a -> a.mine).count();
-	}
-
-	void restart() {
-		open = false;
-		mine = false;
-		flagged = false;
 	}
 
 	public String toString() {
