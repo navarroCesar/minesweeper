@@ -53,7 +53,7 @@ public class ConsoleBoard {
 				String value = captureEnteredValue("Insert the position (row,col): ");
 
 				Iterator<Integer> xy = Arrays.stream(value.split(",")).map(e -> Integer.parseInt(e.trim())).iterator();
-				
+
 				value = captureEnteredValue("[1] Open square   [2] Mark/Unmark square ");
 
 				if ("1".equals(value)) {
@@ -65,6 +65,7 @@ public class ConsoleBoard {
 
 			System.out.println("Congratulations! You cleared the board.");
 		} catch (ExplosionException e) {
+			System.out.println(board);
 			System.out.println("Game Over!!");
 		}
 

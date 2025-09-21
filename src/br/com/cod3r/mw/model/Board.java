@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
+import br.com.cod3r.mw.exception.ExplosionException;
+
 public class Board {
 
 	private int rows;
@@ -23,8 +25,14 @@ public class Board {
 	}
 
 	public void open(int row, int column) {
-		squares.parallelStream().filter(s -> s.getRow() == row && s.getColumn() == column).findFirst()
-				.ifPresent(s -> s.openSquare());
+		try {
+			squares.parallelStream().filter(s -> s.getRow() == row && s.getColumn() == column).findFirst()
+					.ifPresent(s -> s.openSquare());
+		} catch (ExplosionException e) {
+			squares.forEach(s -> s.setOpen(true));
+
+			throw e;
+		}
 	}
 
 	public void changeMarking(int row, int column) {
