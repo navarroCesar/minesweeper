@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import br.com.cod3r.mw.exception.ExplosionException;
+import br.com.cod3r.mw.view.Colors;
 
 public class Board {
 
@@ -83,15 +84,16 @@ public class Board {
 		sb.append("  ");
 		for (int c = 0; c < columns; c++) {
 			sb.append(" ");
-			sb.append(c);
+			sb.append(Colors.CYAN+c+Colors.RESET);
 			sb.append(" ");
+
 		}
 
 		sb.append("\n");
 
 		int i = 0;
 		for (int r = 0; r < rows; r++) {
-			sb.append(r);
+			sb.append(Colors.CYAN+r+Colors.RESET);
 			sb.append(" ");
 			for (int c = 0; c < columns; c++) {
 				sb.append(" ");

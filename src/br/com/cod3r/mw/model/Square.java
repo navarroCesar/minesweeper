@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.cod3r.mw.exception.ExplosionException;
+import br.com.cod3r.mw.view.Colors;
 
 public class Square {
 
@@ -117,11 +118,11 @@ public class Square {
 
 	public String toString() {
 		if (flagged) {
-			return "x";
+			return Colors.YELLOW + "x" + Colors.RESET;
 		} else if (open && mine) {
-			return "*";
+			return Colors.RED + "*" + Colors.RESET;
 		} else if (open && minesInNeighborhood() > 0) {
-			return Long.toString(minesInNeighborhood());
+			return Colors.GREEN + Long.toString(minesInNeighborhood()) + Colors.RESET;
 		} else if (open) {
 			return " ";
 		} else {
